@@ -1,5 +1,5 @@
-def Multipl(num1, num2):
+def Multiplys(num1, num2):
     answer = num1 * num2
     return answer
 
-print(Multiply2, 3))
+print(Multiplys, 3))
