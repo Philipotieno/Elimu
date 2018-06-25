@@ -1,5 +1,5 @@
-def adding(a,b):
+def adding(x,b):
 
-	return a + b
+	return x + b
 
 sum(1,3)
