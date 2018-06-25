@@ -1,4 +1,4 @@
-def adding(x,b):
+def addings(x,b):
 
 	return x + b
 
