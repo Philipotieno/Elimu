@@ -25,6 +25,20 @@ body {
 	background-color: black;
 
 }
+.navbar2 {
+	padding-top: 150px;
+
+}
+
+.navbar2 a {
+	float: right;
+	font-size: 16px;
+	color: red;
+	text-align:center;
+	padding:14px 16px;
+	text-decoration: none;
+
+}
 
 .navbar a {
 	float: left;
