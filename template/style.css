@@ -1,0 +1,40 @@
+body {
+	align-content: center;
+	background-color: lightgray;
+	
+}
+.registration {
+	margin-left: 500px;
+
+}
+
+.login { 
+	margin-left: 500px;
+}
+.navbar {
+	background: green;
+	float: center;
+	font-size: 60px;
+
+}
+
+input{
+	width: 500px;
+}
+
+h1 {
+	background-color:violet;
+	text-align: center;
+	color: green;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	padding-top: 10px;
+}
+
+h2 {
+	background-color:violet;
+	text-align: center;
+	color: green;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	padding-top: 10px;
