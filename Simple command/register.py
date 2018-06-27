@@ -1,4 +1,3 @@
-
 log_reg = eval(input("To register press 1 and enter, to log in press 2 and enter: "))
 
 if log_reg == 1:
