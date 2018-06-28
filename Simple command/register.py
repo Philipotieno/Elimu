@@ -6,7 +6,7 @@ if log_reg == 1:
         email = input("Enter your email: ")
         username = input("Prefered username: ")
         password = input("Password: ")
-        print("welcome ", name, "your username and is ", username)
+        print("welcome ", name, "your username is ", username)
 
     reg()
     
