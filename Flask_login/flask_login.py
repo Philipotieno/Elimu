@@ -1,26 +1,47 @@
-from flask import Flask, session
-import flask_login
+from flask import Flask, session, render_template, request,redirect, g, url_for
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = "philip"
 
-@app.route("/login")
+users = { }
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+	if request.method == "POST":
+		session.pop('user',None)
+
+		if request.form['password'] == 'password':
+			session['user'] = request.form['username']
+			return redirect(url_for('post'))
+
+	return render_template('index.html')
+
+@app.route('/post')
+def post():
+	if g.user:
+		return render_template('post.html')
+
+	return redirect(url_for('index'))
+
+
+@app.before_request
+def before_request():
+	g.user = None
+	if 'user' in session:
+		g.user = session['user']
+
+@app.route('/login')
 def login():
-	session['User'] = "Anthony"
-	return 'Index'
-
-@app.route("/getsession")
-def getsession():
 	if 'user' in session:
 		return session['user']
+	else:
+		return 'Not logged in'
 
-	return 'Is Not logged in! '
+@app.route('/logout')
+def logout():
+	session.pop('user', None)
+	return '<logged out>'
 
-@app.route("/dropsession")
-def dropsession():
-	session.pop("user", None)
-	return 'Dropped!'
 
-	
-if (__name__ == "__main__"):
-    app.run(debug=True)
+if __name__ == '__main__':
+	app.run(debug=True, port=5033)
