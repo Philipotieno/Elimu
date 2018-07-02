@@ -46,9 +46,9 @@ def comment():
 @app.route('/details', methods=['GET', 'POST']) # pylint: disable=invalid-name
 def details():
     if 'user' in session:
-    	text = request.form['name']
-    	processed_text = text.upper()
-    	return processed_text
+        text = request.form['name']
+        processed_text = text.upper()
+        return processed_text
 
     return render_template('index.html')
 

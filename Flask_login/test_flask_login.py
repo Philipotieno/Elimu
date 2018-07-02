@@ -1,12 +1,27 @@
 import unittest
-from pylint.testutils import make_tests, LintTestUsingFile, cb_test_gen, linter
-import flask_login
 from flask_login import *
 
-class LoginSessions(unittest.TestCase):
+class TestFlask(unittest.TestCase):
+    render_templates = False
 
     def setUp(self):
+        app.config['SECRET_KEY']= "philip"
+        self.flask_login = app.test_client()
+
+    def test_index(self):
+        self.assertEqual(request.form['password'] ,'password')
+
+    def post(self):
+    	pass
+
+    def comment(self):
+    	pass
+
+    def login(self):
+    	pass
+
+    def logout(self):
     	pass
 
 if __name__ == '__main__':
-    unittest.main()
+ unittest.main()
