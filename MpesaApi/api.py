@@ -11,7 +11,7 @@ short_code = 174379
 passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
 timestamp = "20180702110120"
 
-access_token = "VG28lunwCC6Ga7nkuHssbIyQY24d"
+access_token = "whegiJEMwBPD1Oy64ZC3oi4RdfcK"
 
 api_URL = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
 r = requests.get(api_URL, auth=HTTPBasicAuth(consumer_key, consumer_secret))
@@ -26,7 +26,7 @@ app_data = ("short_code" + "passkey" + "timestamp")
 
 password = base64.b64encode(app_data.encode('utf=8'))
 
-password = "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTgwNzAyMTEwMTIw"
+#password = "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTgwNzAyMTEwMTIw"
 
 app = Flask(__name__)
 
@@ -43,7 +43,7 @@ def message():
         "PartyA": "254703473377",
         "PartyB": short_code,
         "PhoneNumber": "254703473377",
-        "CallBackURL": "http://mpesa-requestbin.herokuapp.com/16xxr0i1",
+        "CallBackURL": "http://mpesa-requestbin.herokuapp.com/xc9fkkxc",
         "AccountReference": "test",
         "TransactionDesc": "test"
     }
@@ -60,4 +60,4 @@ def message():
     return response.text
 
 if (__name__ == "__main__"):
-    app.run(debug=True, port = 5041)
+    app.run(debug=True, port = 5070)
