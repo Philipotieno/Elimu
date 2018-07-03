@@ -1,4 +1,4 @@
-1. Authorisation and token genrated
+1. Authorisation and token generated
 
 2. Creation of headers
 
