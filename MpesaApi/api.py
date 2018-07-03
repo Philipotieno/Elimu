@@ -60,4 +60,4 @@ def message():
     return response.text
 
 if (__name__ == "__main__"):
-    app.run(debug=True, port = 5070)
+    app.run(debug=True, port = 8070)
