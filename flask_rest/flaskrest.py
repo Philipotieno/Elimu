@@ -40,25 +40,25 @@ def login():
 
 @app.route("/comment",methods=["GET","POST"])
 def comment():
-    data=request.get_json()["comment"]
-    comment = data["comment"]
-    store_comments.append(comment)
+    data=request.get_json()
+    comment = data['comment']
+    comments.append(comment)
     return jsonify({"Message": "Comment sent"})
 
 
 @app.route("/view_comment",methods=["GET"])
 def view_comments():
-    output={}
-    for each in store_comments:
-        output.update({store_comments.index(each):each})
-    return jsonify(output)
+    view={}
+    for each in comments:
+        view.update({comments.index(each):each})
+    return jsonify(view)
 
 @app.route("/user_details",methods=["GET"])   
 def user_details():
     return jsonify(details)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=9956)
+    app.run(debug=True, port=7956)
 
 
 '''
@@ -69,6 +69,17 @@ if __name__ == '__main__':
 	"Username": "otibmt",
 	"Password": "password"
 	
+}
+
+
+{
+	"Username": "otibmt",
+	"Password": "password"
+}
+
+
+{
+	"Comment": "my name is philip"
 }
 
 '''
