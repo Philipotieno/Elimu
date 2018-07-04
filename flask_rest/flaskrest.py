@@ -57,8 +57,15 @@ def view_comments():
 def user_details():
     return jsonify(details)
 
+
+@app.route('/remove_details/<int:commentID>', methods=['DELETE'])   
+def remove_details(commentID):
+	del comments[commentID]
+	return jsonify({"Info": "You have deleted a comment"})
+
+
 if __name__ == '__main__':
-    app.run(debug=True, port=7956)
+    app.run(debug=True, port=2956)
 
 
 '''
@@ -79,7 +86,10 @@ if __name__ == '__main__':
 
 
 {
-	"Comment": "my name is philip"
+	"comment": "my name is philip",
+	"comment": "my other name is otieno",
+	"comment": "jesus is Lord",
+	"comment": "this is andela"
 }
 
 '''
