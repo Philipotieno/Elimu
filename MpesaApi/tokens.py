@@ -8,8 +8,9 @@ from flask_jwt_extended import (
 
 app = Flask(__name__)
 
-app.config['JWT_SECRET_KEY'] = 'mysupersecret'
+app.config['JWT_SECRET_KEY'] = 'thisisandela'
 jwt = JWTManager(app)
+
 
 
 def admin_required(fn):
@@ -27,9 +28,9 @@ def admin_required(fn):
 @jwt.user_claims_loader
 def add_claims_to_access_token(identity):
     if identity == 'admin':
-        return {'roles': 'admin'}
+        return {'Message': 'You are not a user'}
     else:
-        return {'roles': 'pesant'}
+        return {'Message': 'You are not a user'}
 
 
 @app.route('/login', methods=['POST'])
@@ -42,7 +43,7 @@ def login():
 @app.route('/protected', methods=['GET'])
 @admin_required
 def protected():
-    return jsonify(secret_message="go banana!") 
+    return jsonify(secret_message="You can view posts!") 
 
 if __name__ == '__main__':
-    app.run(port=4545)
+    app.run(port=8090)
