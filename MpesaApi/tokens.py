@@ -1,49 +1,114 @@
+from flask import *
+from flask import Flask
+import jwt
+from flask_jwt import JWT
+import datetime
 from functools import wraps
 
-from flask import Flask, jsonify, request
-from flask_jwt_extended import (
-    JWTManager, verify_jwt_in_request, create_access_token,
-    get_jwt_claims
-)
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'thisisandela'
 
-app.config['JWT_SECRET_KEY'] = 'thisisandela'
-jwt = JWTManager(app)
-
-
-
-def admin_required(fn):
+def required(fn):
     @wraps(fn)
-    def wrapper(*args, **kwargs):
-        verify_jwt_in_request()
-        claims = get_jwt_claims()
-        if claims['roles'] != 'admin':
-            return jsonify(msg='Admins only!'), 403
-        else:
-            return fn(*args, **kwargs)
-    return wrapper
+    def decorator(*args,**kwargs):
+        
+        if request.args.get('token')=='':
+            return jsonify({"Message":'Please log in'})
+        try:
+            jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
+        except:
+            return jsonify({"Message":'You are not logged in'})
+        return fn(*args,**kwargs)
+    return decorator
 
 
-@jwt.user_claims_loader
-def add_claims_to_access_token(identity):
-    if identity == 'admin':
-        return {'Message': 'You are not a user'}
-    else:
-        return {'Message': 'You are not a user'}
+details = {}
+comments = []
 
+@app.route('/', methods=['POST', 'GET'])
+def index():
+ 	return jsonify({"Message": "Hello Welcome!"})
 
-@app.route('/login', methods=['POST'])
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+	data = request.get_json()
+	Name = data['Name']
+	Email = data['Email']
+	Username = data['Username']
+	Password = data['Password']
+	details.update({"Name": Name, "Email": Email, "Username" : Username, "Password": Password})
+
+	return jsonify({"Message": "Registration successfull"})
+
+	return jsonify({"Homepage": "Hello Welcome to my homepage"})
+
+@app.route("/login",methods=["GET","POST"])
 def login():
-    username = request.json.get('username', None)
-    access_token = create_access_token(username)
-    return jsonify(access_token=access_token)
+	data = request.get_json()
+	Username = data['Username']
+	Password = data['Password']
+	if Username==details["Username"]:
+		if Password==details["Password"]:
+			token = jwt.encode({"Username":Username,"exp":datetime.datetime.utcnow()+datetime.timedelta(minutes=1)},app.config['SECRET_KEY'])
+			return jsonify({"token":token.decode('utf-8')})
+		else:
+			return jsonify({"Message": "Wrong password, try again later"})
+	else:
+		return jsonify({"Message": "Please provide the right username"})
+
+@app.route("/comment",methods=["GET","POST"])
+def comment():
+    data=request.get_json()
+    comment = data['comment']
+    comments.append(comment)
+    return jsonify({"Message": "Comment sent"})
 
 
-@app.route('/protected', methods=['GET'])
-@admin_required
-def protected():
-    return jsonify(secret_message="You can view posts!") 
+@app.route("/view_comment",methods=["GET"])
+def view_comments():
+    view={}
+    for each in comments:
+        view.update({comments.index(each):each})
+    return jsonify(view)
+
+@app.route("/user_details",methods=["GET"])   
+def user_details():
+    return jsonify(details)
+
+
+@app.route('/remove_details/<int:commentID>', methods=['DELETE'])
+def remove_details(commentID):
+	del comments[commentID]
+	return jsonify({"Info": "You have deleted a comment"})
+
 
 if __name__ == '__main__':
-    app.run(port=8090)
+    app.run(debug=True, port=7556)
+
+
+'''
+
+{
+	"Name":"Philip", 
+	"Email":"emailemail@gmail.com",
+	"Username": "otibmt",
+	"Password": "password"
+	
+}
+
+
+{
+	"Username": "otibmt",
+	"Password": "password"
+}
+
+
+{
+	"comment": "my name is philip",
+	"comment": "my other name is otieno",
+	"comment": "jesus is Lord",
+	"comment": "this is andela"
+}
+
+'''
