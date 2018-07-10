@@ -1,7 +1,6 @@
-#views of the server
 from run import app
-from flask import Flask
+from flask import jsonify
 
 @app.route('/')
 def index():
-    return jsonify({"Message": "Hello Welcome to my homepage"})
+    return jsonify({'Message': 'Hello, Welcome to my homepage!'})
