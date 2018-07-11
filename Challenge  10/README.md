@@ -1,14 +1,12 @@
 # Database Intergration with  JWT Authorization in Flask
  --A flask-restful application where users can register, login, create comment, edit comment, delete his/her comment and view all comments and who posted the comments.
 
- -the user details and comments are stored in AN sqlite db
+ -the user details and comments are stored in an sqlite db
 
 ## How to run
 
 ``` bash
-clone this branch
-
-https://github.com/Philipotieno/Elimu.git
+clone this branch  --- https://github.com/Philipotieno/Elimu.git
 
 cd into the Challemge_ten 
 
