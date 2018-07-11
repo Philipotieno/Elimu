@@ -50,12 +50,28 @@ class UserModel(db.Model):
     def verify_hash(password, hash):
         return sha256.verify(password, hash)
 
-# class Comments(db.model):
-#     __tablename__ = 'comments'
+class CommentModel(db.Model):
+    __tablename__ = 'comments'
 
-#     id = db.Column(db.Integer, primary_key = True)
-#     post = db.Column(db.String(120), unique = True, nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
+    post = db.Column(db.String(120), unique = True, nullable = False)
 
+    def add(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def find_by_post(cls, post):
+        return cls.query.filter_by(post = post).first()
+
+
+    @classmethod
+    def return_all(cls):
+        def to_json(x):
+            return {'post' : x.post}
+        return {'comments': list(map(lambda x: to_json(x), CommentModel.query.all()))}
+
+    
 
 class RevokedTokenModel(db.Model):
     __tablename__ = 'revoked_tokens'
